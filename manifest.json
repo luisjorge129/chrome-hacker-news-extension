@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+
+  "name": "Hacker News",
+  "description": "This extension shows the list of top news from Hacker News.",
+  "version": "1.0",
+
+  "permissions": [
+    "https://hacker-news.firebaseio.com/v0/"
+  ],
+  "browser_action": {
+    "default_icon": "assets/img/icon.png",
+    "default_popup": "popup.html"
+  }
+}
