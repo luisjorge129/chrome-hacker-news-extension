@@ -48,11 +48,6 @@ controller('hackerController', ['$scope', '$http', 'Rest', function($scope, $htt
         $scope.initialValue = 30 * page;
         $scope.endValue = 30 * (page + 1);
 
-        console.log("Page: "+ $scope.page);
-        console.log($scope.initialValue);
-        console.log($scope.endValue);
-        console.log($scope.list);
-
         for (var i = $scope.initialValue; i < $scope.endValue; i++) {
            $scope.listings.push(Rest.get({id: $scope.list[i]}));
         }
