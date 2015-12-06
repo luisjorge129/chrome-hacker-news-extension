@@ -19,7 +19,7 @@
           <h4>Loading...</h4>
           <img id="loading-icon" src="assets/img/loading.gif" alt="loading spinner">
         </div>
-        <section ng-if="refreshLoading">
+        <section ng-if="refreshLoading" id="content">
           <article ng-repeat="item in listings" class="row">
             <div class="results col-xs-12">
               <span class="pull-left results-index">{{ $index + 1 }}.</span>
