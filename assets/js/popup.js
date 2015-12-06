@@ -27,7 +27,7 @@ factory('Rest', ['$resource', function($resource)
 }]).
 filter('fromNow', function() {
   return function(dateString) {
-    return moment(dateString).fromNow()
+    return moment(dateString*1000).fromNow()
   };
 }).
 controller('hackerController', ['$scope', '$http', 'Rest', function($scope, $http, Rest)
@@ -43,14 +43,15 @@ controller('hackerController', ['$scope', '$http', 'Rest', function($scope, $htt
   $scope.news = function(page){
     setTimeout(function() {
       $scope.$apply(function() {
+        var templist = [];
         $scope.loading = false;
 
         $scope.initialValue = 30 * page;
         $scope.endValue = 30 * (page + 1);
-
         for (var i = $scope.initialValue; i < $scope.endValue; i++) {
-           $scope.listings.push(Rest.get({id: $scope.list[i]}));
+           templist.push(Rest.get({id: $scope.list[i]}))
         }
+        $scope.listings = $scope.listings.concat(templist);
 
       });
     }, 1000);

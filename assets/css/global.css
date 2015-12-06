@@ -10,9 +10,6 @@
 .container{
 	width: 375px;
 }
-.container > {
-
-}
 .results > .results-index{
 	color: #888;
 	margin-right: 5px;
@@ -23,15 +20,16 @@
 }
 #loading-content {
 	color: white;
-	text-align: center;
-	padding: 30px;
-	position: fixed;
-	top: 30%;
-	width: 345px;
-	background-color: rgba(0,0,0, 0.7);
-	z-index: 1;
-	border-radius: 6px;
-	box-shadow: 2px 2px 6px gray;
+  text-align: center;
+  padding: 30px;
+   position: fixed; 
+  top: 30%;
+  margin: 40px 0px;
+  width: 345px;
+  background-color: rgba(0,0,0, 0.5);
+  z-index: 1;
+  border-radius: 2px;
+  box-shadow: 1px 1px 4px lightgray;
 }
 #loading-content > #loading-icon {
 	display: inline-block;
