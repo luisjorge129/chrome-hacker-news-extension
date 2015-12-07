@@ -1,6 +1,6 @@
 var url = 'https://hacker-news.firebaseio.com/v0/';
 
-angular.module('hackerNewsApp', ['ngResource'])
+angular.module('hackerNewsApp', ['ngResource', 'ngAnimate'])
 .config(function($httpProvider) {
   $httpProvider.defaults.xsrfCookieName = 'csrftoken';
   $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -27,24 +27,30 @@ factory('Rest', ['$resource', function($resource)
 }]).
 filter('fromNow', function() {
   return function(dateString) {
-    return moment(dateString*1000).fromNow()
+    if(dateString){
+      return moment(dateString*1000).fromNow()
+    }else{
+      return ""
+    }
   };
 }).
 controller('hackerController', ['$scope', '$http', 'Rest', function($scope, $http, Rest)
 {
-  $scope.refreshLoading = false;
-  $scope.list = [];
-  $scope.listings = [];
-  $scope.page = 0;
-  $scope.initialValue = 0;
-  $scope.endValue = 30;
-  $scope.list = Rest.list();
+  $scope.refresh = function(){
+    $scope.listings = [];
+    $scope.list = [];
+    $scope.page = 0;
+    $scope.initialValue = 0;
+    $scope.endValue = 30;
+    $scope.list = Rest.list();
+    $scope.news(0);
+  };
 
   $scope.news = function(page){
     setTimeout(function() {
-      $scope.$apply(function() {
-        var templist = [];
         $scope.loading = false;
+
+        var templist = [];
 
         $scope.initialValue = 30 * page;
         $scope.endValue = 30 * (page + 1);
@@ -53,24 +59,11 @@ controller('hackerController', ['$scope', '$http', 'Rest', function($scope, $htt
         }
         $scope.listings = $scope.listings.concat(templist);
 
-      });
     }, 1000);
 
     // $scope.page += 1;
     $scope.loading = !$scope.loading;
   };
 
-  $scope.refresh = function(){
-    $scope.refreshLoading = false;
-    $scope.listings = [];
-    $scope.page = 0;
-    $scope.initialValue = 0;
-    $scope.endValue = 30;
-    $scope.list = Rest.list();
-    $scope.news(0);
-    $scope.refreshLoading = true;
-  };
-
-  $scope.news(0);
-  $scope.refreshLoading = true;
+  $scope.refresh();
 }]);
