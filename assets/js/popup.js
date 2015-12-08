@@ -64,12 +64,13 @@ controller('hackerController', ['$scope', '$http', 'Rest', function($scope, $htt
     };
 
     $scope.news = function(page){
-      $scope.loading = true;
 
       $scope.initialValue = 30 * page;
       $scope.endValue = 30 * (page + 1);
       for (var i = $scope.initialValue; i < $scope.endValue; i++) {
          Rest.get({id: $scope.list[i]}, function(data){
+           $scope.loading = false;
+
            $scope.listings.push(data);
          });
       };
@@ -78,7 +79,7 @@ controller('hackerController', ['$scope', '$http', 'Rest', function($scope, $htt
         $scope.moreButton = false;
       }
 
-      $scope.loading = false;
+      $scope.loading = true;
     };
 
     $scope.refresh();
