@@ -70,7 +70,6 @@ controller('hackerController', ['$scope', '$http', 'Rest', function($scope, $htt
       for (var i = $scope.initialValue; i < $scope.endValue; i++) {
          Rest.get({id: $scope.list[i]}, function(data){
            $scope.loading = false;
-
            $scope.listings.push(data);
          });
       };

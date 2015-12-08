@@ -16,10 +16,7 @@
         <header id="header">
           <p>Hacker News</p>
         </header>
-        <div id="loading-content" ng-if="loading">
-          <h4>Loading...</h4>
-          <img id="loading-icon" src="assets/img/loading.gif" alt="loading spinner">
-        </div>
+        <div id="loading-content" ng-show="loading"></div>
         <section id="content">
           <div class="text-center text-primary" ng-hide="online">
             <h3>No Internet Connection</h3>
