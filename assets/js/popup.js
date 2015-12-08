@@ -42,27 +42,29 @@ controller('hackerController', ['$scope', '$http', 'Rest', function($scope, $htt
     $scope.page = 0;
     $scope.initialValue = 0;
     $scope.endValue = 30;
-    $scope.list = Rest.list();
-    $scope.news(0);
+    $scope.moreButton = true;
+    Rest.list(function(data) {
+      $scope.list = data;
+      $scope.news(0);
+    });
   };
 
   $scope.news = function(page){
-    setTimeout(function() {
-        $scope.loading = false;
+    $scope.loading = true;
 
-        var templist = [];
+    $scope.initialValue = 30 * page;
+    $scope.endValue = 30 * (page + 1);
+    for (var i = $scope.initialValue; i < $scope.endValue; i++) {
+       Rest.get({id: $scope.list[i]}, function(data){
+         $scope.listings.push(data);
+       });
+    };
 
-        $scope.initialValue = 30 * page;
-        $scope.endValue = 30 * (page + 1);
-        for (var i = $scope.initialValue; i < $scope.endValue; i++) {
-           templist.push(Rest.get({id: $scope.list[i]}))
-        }
-        $scope.listings = $scope.listings.concat(templist);
+    if($scope.endValue >= $scope.list.length){
+      $scope.moreButton = false;
+    }
 
-    }, 1000);
-
-    // $scope.page += 1;
-    $scope.loading = !$scope.loading;
+    $scope.loading = false;
   };
 
   $scope.refresh();

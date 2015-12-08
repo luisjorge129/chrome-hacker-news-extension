@@ -16,7 +16,7 @@
         <header id="header">
           <p>Hacker News</p>
         </header>
-        <div id="loading-content" ng-if="loading">
+        <div id="loading-content" ng-show="loading">
           <h4>Loading...</h4>
           <img id="loading-icon" src="assets/img/loading.gif" alt="loading spinner">
         </div>
@@ -31,7 +31,7 @@
             </div>
           </article>
         </section>
-        <button class="btn btn-default btn-xs" style="width: 100%;" ng-click="news(page=page+1)">More</button>
+        <button class="btn btn-default btn-xs" style="width: 100%;" ng-click="news(page=page+1)" ng-if="moreButton">More</button>
         <footer id="footer">
           <a class="btn btn-link" ng-click="refresh()" href="#header"><img class="icon" src="assets/img/fa-refresh.png" alt="refresh" /> Refresh</a>
           <span>|</span>
