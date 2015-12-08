@@ -11,7 +11,7 @@
 	width: 375px;
 }
 #content{
-    min-height: 530px;
+    min-height: 200px;
 }
 .results > .results-index{
 	color: #888;
