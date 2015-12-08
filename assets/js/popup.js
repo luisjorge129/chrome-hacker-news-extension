@@ -51,6 +51,7 @@ controller('hackerController', ['$scope', '$http', 'Rest', function($scope, $htt
 {
   $scope.$watch('online', function(newStatus) {
     $scope.refresh = function(){
+      $scope.loading = false;
       $scope.listings = [];
       $scope.list = [];
       $scope.page = 0;
