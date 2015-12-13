@@ -2,21 +2,21 @@
 <html>
   <head>
     <title>Hacker News Extension</title>
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/global.css">
     <script src="assets/js/angular.min.js" type="text/javascript"></script>
     <script src="assets/js/angular-resource.min.js" type="text/javascript"></script>
     <script src="assets/js/angular-animate.min.js" type="text/javascript"></script>
     <script src="assets/js/popup.js" type="text/javascript"></script>
     <script src="assets/js/moment.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/global.css">
   </head>
   <body ng-app="hackerNewsApp">
     <div ng-controller="hackerController">
       <div class="container">
         <header id="header">
-          <p>Hacker News</p>
+          <p><img src="assets/img/icon48.png" alt="Hacker News Logo"> Hacker News</p>
         </header>
-        <div id="loading-content" ng-show="loading"></div>
+        <div id="loading-content" ng-show="!loading"></div>
         <section id="content">
           <div class="text-center text-primary" ng-hide="online">
             <h3>No Internet Connection</h3>
@@ -26,17 +26,19 @@
               Please reconnect and try again.
             </p>
           </div>
-          <article ng-repeat="item in listings" class="row animate-repeat">
-            <div class="results col-xs-12">
-              <span class="pull-left results-index">{{ $index + 1 }}.</span>
-              <a href="{{ item.url }}" target="_blank">    {{ item.title }}</a>
+          <article ng-repeat="item in listings" class="row animate-repeat item-listings">
+            <div class="col-xs-1">
+              <span class="results-index">{{ $index + 1 }}.</span>
+            </div>
+            <div class="col-xs-11">
+              <a class="title" href="{{ item.url }}" target="_blank">    {{ item.title }}</a>
               <p class="results-extra-details">{{ item.score }} Points by {{ item.by }} {{ item.time | fromNow }} |
                 <a href="https://news.ycombinator.com/item?id={{ item.id }}" target="_blank">{{ item.kids.length }} Comments</a>
               </p>
             </div>
           </article>
         </section>
-        <button class="btn btn-default btn-xs" style="width: 100%;" ng-click="news(page=page+1)" ng-if="moreButton" ng-hide="!online">More</button>
+        <button class="btn btn-default btn-xs" ng-click="news(page=page+1)" ng-if="moreButton" ng-hide="!online">More</button>
         <footer id="footer">
           <a class="btn btn-link" ng-click="refresh()" href="#header"><img class="icon" src="assets/img/fa-refresh.png" alt="refresh" /> Refresh</a>
           <span>|</span>

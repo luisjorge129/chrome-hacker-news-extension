@@ -70,7 +70,6 @@ controller('hackerController', ['$scope', '$http', 'Rest', function($scope, $htt
       $scope.endValue = 30 * (page + 1);
       for (var i = $scope.initialValue; i < $scope.endValue; i++) {
          Rest.get({id: $scope.list[i]}, function(data){
-           $scope.loading = false;
            $scope.listings.push(data);
          });
       };
@@ -83,6 +82,5 @@ controller('hackerController', ['$scope', '$http', 'Rest', function($scope, $htt
     };
 
     $scope.refresh();
-
   });
 }]);
