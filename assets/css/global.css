@@ -16,7 +16,7 @@
 	width: 375px;
 }
 #content{
-    min-height: 200px;
+    min-height: 480px;
 }
 .results > .results-index{
 	color: #888;
@@ -91,10 +91,10 @@
 	color: rgb(187, 187, 187);
 	min-width: 25px;
 }
-.item-listings > a:visited{
+.item-listings a:visited{
 	color: rgb(135, 193, 232);
 }
-.item-listings > a:hover{
+.item-listings a:hover{
 	text-decoration: none;
 }
 .item-listings .results-extra-details{
@@ -228,6 +228,12 @@ fieldset[disabled] .btn-link {
   color: #23527c;
   text-decoration: underline;
   background-color: transparent;
+}
+.btn-group-sm>.btn, .btn-sm {
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
 }
 footer{
 	margin: 10px 0px;

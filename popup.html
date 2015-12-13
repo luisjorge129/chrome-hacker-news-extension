@@ -16,7 +16,7 @@
         <header id="header">
           <p><img src="assets/img/icon48.png" alt="Hacker News Logo"> Hacker News</p>
         </header>
-        <div id="loading-content" ng-show="!loading"></div>
+        <div id="loading-content" ng-show="isLoading"></div>
         <section id="content">
           <div class="text-center text-primary" ng-hide="online">
             <h3>No Internet Connection</h3>
@@ -38,7 +38,7 @@
             </div>
           </article>
         </section>
-        <button class="btn btn-default btn-xs" ng-click="news(page=page+1)" ng-if="moreButton" ng-hide="!online">More</button>
+        <button class="btn btn-default btn-sm" ng-click="news(page=page+1)" ng-if="moreButton" ng-hide="!online" ng-disabled="isDisabled">More</button>
         <footer id="footer">
           <a class="btn btn-link" ng-click="refresh()" href="#header"><img class="icon" src="assets/img/fa-refresh.png" alt="refresh" /> Refresh</a>
           <span>|</span>

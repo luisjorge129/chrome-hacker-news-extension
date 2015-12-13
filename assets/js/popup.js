@@ -50,8 +50,13 @@ filter('fromNow', function() {
 controller('hackerController', ['$scope', '$http', 'Rest', function($scope, $http, Rest)
 {
   $scope.$watch('online', function(newStatus) {
+    $scope.setLoading = function(loading) {
+      $scope.isLoading = loading;
+      $scope.isDisabled = loading;
+    }
+
     $scope.refresh = function(){
-      $scope.loading = false;
+      $scope.setLoading(true);
       $scope.listings = [];
       $scope.list = [];
       $scope.page = 0;
@@ -65,7 +70,7 @@ controller('hackerController', ['$scope', '$http', 'Rest', function($scope, $htt
     };
 
     $scope.news = function(page){
-
+      $scope.setLoading(true);
       $scope.initialValue = 30 * page;
       $scope.endValue = 30 * (page + 1);
       for (var i = $scope.initialValue; i < $scope.endValue; i++) {
@@ -78,7 +83,7 @@ controller('hackerController', ['$scope', '$http', 'Rest', function($scope, $htt
         $scope.moreButton = false;
       }
 
-      $scope.loading = true;
+      $scope.setLoading(false);
     };
 
     $scope.refresh();
