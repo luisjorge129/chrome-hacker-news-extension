@@ -1,11 +1,11 @@
 var url = 'https://hacker-news.firebaseio.com/v0/';
 
 angular.module('hackerNewsApp', ['ngAnimate'])
-.config(function($httpProvider) {
+.config(['$httpProvider', function($httpProvider) {
   $httpProvider.defaults.xsrfCookieName = 'csrftoken';
   $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
-}).
-run(function($window, $rootScope) {
+}]).
+run(['$window', '$rootScope', function($window, $rootScope) {
       $rootScope.online = navigator.onLine;
       $window.addEventListener("offline", function () {
         $rootScope.$apply(function() {
@@ -17,7 +17,7 @@ run(function($window, $rootScope) {
           $rootScope.online = true;
         });
       }, false);
-}).
+}]).
 filter('fromNow', function() {
   return function(dateString) {
     if(dateString){
