@@ -1,6 +1,6 @@
 var url = 'https://hacker-news.firebaseio.com/v0/';
 
-angular.module('hackerNewsApp', ['ngResource', 'ngAnimate'])
+angular.module('hackerNewsApp', ['ngAnimate'])
 .config(function($httpProvider) {
   $httpProvider.defaults.xsrfCookieName = 'csrftoken';
   $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -18,26 +18,6 @@ run(function($window, $rootScope) {
         });
       }, false);
 }).
-factory('Rest', ['$resource', function($resource)
-{
-    return $resource('https://hacker-news.firebaseio.com/v0/',
-    {},
-    {
-    list: {
-      method: 'GET',
-      isArray: true,
-      url: url + 'topstories.json'
-    },
-    get: {
-      method: 'GET',
-      isArray: false,
-      url: url + 'item/:id/.json',
-      params: {
-                id: '@_id',
-              }
-    },
-  });
-}]).
 filter('fromNow', function() {
   return function(dateString) {
     if(dateString){
@@ -47,7 +27,7 @@ filter('fromNow', function() {
     }
   };
 }).
-controller('hackerController', ['$scope', '$http', 'Rest', function($scope, $http, Rest)
+controller('hackerController', ['$scope', '$http', function($scope, $http)
 {
   $scope.$watch('online', function(newStatus) {
     $scope.setLoading = function(loading) {
@@ -63,8 +43,8 @@ controller('hackerController', ['$scope', '$http', 'Rest', function($scope, $htt
       $scope.initialValue = 0;
       $scope.endValue = 30;
       $scope.moreButton = true;
-      Rest.list(function(data) {
-        $scope.list = data;
+      $http.get(url + "topstories.json").then(function(response) {
+        $scope.list = response.data;
         $scope.news(0);
       });
     };
@@ -73,15 +53,17 @@ controller('hackerController', ['$scope', '$http', 'Rest', function($scope, $htt
       $scope.setLoading(true);
       $scope.initialValue = 30 * page;
       $scope.endValue = 30 * (page + 1);
-      for (var i = $scope.initialValue; i < $scope.endValue; i++) {
-         Rest.get({id: $scope.list[i]}, function(data){
-           $scope.listings.push(data);
-         });
-      };
 
-      if($scope.endValue >= $scope.list.length){
+      if ($scope.endValue >= $scope.list.length - 1){
+        $scope.endValue = $scope.list.length - 1;
         $scope.moreButton = false;
       }
+
+      for (var i = $scope.initialValue; i < $scope.endValue; i++) {
+        $http.get(url + 'item/' + $scope.list[i] + '/.json').then(function(response) {
+          $scope.listings.push(response.data);
+        });
+      };
 
       $scope.setLoading(false);
     };

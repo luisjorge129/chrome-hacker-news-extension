@@ -3,18 +3,16 @@
   <head>
     <title>Hacker News Extension</title>
     <script src="assets/js/angular.min.js" type="text/javascript"></script>
-    <script src="assets/js/angular-resource.min.js" type="text/javascript"></script>
-    <script src="assets/js/angular-animate.min.js" type="text/javascript"></script>
     <script src="assets/js/popup.js" type="text/javascript"></script>
     <script src="assets/js/moment.min.js" type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/global.min.css">
   </head>
   <body ng-app="hackerNewsApp">
     <div ng-controller="hackerController">
       <div class="container">
         <header id="header">
-          <p><img src="assets/img/icon48.png" alt="Hacker News Logo"> Hacker News</p>
+          <img src="assets/img/icon48.png" alt="Hacker News Logo" class="pull-left">
+          <p class="pull-left">Hacker News</p>
         </header>
         <div id="loading-content" ng-show="isLoading"></div>
         <section id="content">
@@ -27,12 +25,12 @@
             </p>
           </div>
           <article ng-repeat="item in listings" class="row animate-repeat item-listings">
-            <div class="col-xs-1">
-              <span class="results-index">{{ $index + 1 }}.</span>
-            </div>
-            <div class="col-xs-11">
-              <a class="title" href="{{ item.url }}" target="_blank">    {{ item.title }}</a>
-              <p class="results-extra-details">{{ item.score }} Points by {{ item.by }} {{ item.time | fromNow }} |
+            <p class="pull-left results-index">
+              {{ $index + 1 }}.
+            </p>
+            <div class="pull-left results-information">
+              <a href="{{ item.url }}" target="_blank">    {{ item.title }}</a>
+              <p>{{ item.score }} Points by {{ item.by }} {{ item.time | fromNow }} |
                 <a href="https://news.ycombinator.com/item?id={{ item.id }}" target="_blank">{{ item.kids.length }} Comments</a>
               </p>
             </div>
@@ -40,9 +38,15 @@
         </section>
         <button class="btn btn-default btn-sm" ng-click="news(page=page+1)" ng-if="moreButton" ng-hide="!online" ng-disabled="isDisabled">More</button>
         <footer id="footer">
-          <a class="btn btn-link" ng-click="refresh()" href="#header"><img class="icon" src="assets/img/fa-refresh.png" alt="refresh" /> Refresh</a>
+          <a class="btn btn-link" ng-click="refresh()" href="#header">
+            <img class="icon" src="assets/img/fa-refresh.png" alt="refresh" />
+            <span>Refresh</span>
+          </a>
           <span>|</span>
-          <a class="btn btn-link" href="https://github.com/luisjorge129/chrome-hacker-news-extension.git" target="_blank"><img class="icon" src="assets/img/fa-github-blue.png" alt="github" />Source Code</a>
+          <a class="btn btn-link" href="https://github.com/luisjorge129/chrome-hacker-news-extension.git" target="_blank">
+            <img class="icon" src="assets/img/fa-github-blue.png" alt="github" />
+            <span>Source Code</span>
+          </a>
         </footer>
       </div>
     </div>
