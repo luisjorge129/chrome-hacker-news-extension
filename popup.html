@@ -2,7 +2,9 @@
 <html>
   <head>
     <title>Hacker News Extension</title>
-    <script src="assets/js/angular.min.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.min.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular-animate.min.js" type="text/javascript"></script>
+    <script src="assets/js/moment.min.js" type="text/javascript"></script>
     <script src="assets/js/popup.min.js" type="text/javascript"></script>
     <link rel="stylesheet" href="assets/css/global.min.css">
   </head>
@@ -23,12 +25,12 @@
               Please reconnect and try again.
             </p>
           </div>
-          <article ng-repeat="item in listings" class="row animate-repeat item-listings">
+          <article ng-repeat="item in listings track by $index" class="row animate-repeat item-listings">
             <p class="pull-left results-index text-center">
               {{ $index + 1 }}.
             </p>
             <div class="pull-left results-information">
-              <a href="{{ item.url }}" target="_blank">    {{ item.title }}</a>
+              <a ng-href="{{item.url? item.url : 'https://news.ycombinator.com/item?id=' + item.id}}" target="_blank">    {{ item.title }}</a>
               <p>{{ item.score }} Points by {{ item.by }} {{ item.time | fromNow }} |
                 <a href="https://news.ycombinator.com/item?id={{ item.id }}" target="_blank">{{ item.kids.length }} Comments</a>
               </p>
